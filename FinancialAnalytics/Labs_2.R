@@ -16,7 +16,14 @@ lines(time,expo,col=2,lwd=2)
 
 
 
-####
+####An R demonstration for  doing some descriptive statistics 
+## of financial returns. We  work with financial data from  
+# Allianz (ALV), Bayerische Motoren Werke (BMW),
+## Commerzbank (CBK) and Thyssenkrupp (TKA), all German business
+## trading in the Frankfurt Stock Exchange and listed in 
+## the main index DAX
+
+
 ### Part I: preprocessing the data ##########
 wdir="path-to-your-working-directory"; setwd(wdir)
 # load the financial data from wdir
@@ -58,13 +65,18 @@ write.table(dax,file="dax") ## or  as .csv use write.csv
 dax = read.table("dax", header=T)
 
 
-###
+### Computing quartiles for the series of returns of Allianz 
+## (ALV::Frankfurt) in period 06/01/2009 - 30/12/2009.
 
 alv=na.omit(daxR$alvR)
 quantile(alv,probs=c(0,1,0.25,0.5,0.75))
 
 
-####
+#### Histogram of ALV returns from 06/01/2009 - 30/12/2009, 
+## with an estimate of its density from sample data (solid line),
+## and adjusted normal distribution (dashed line).
+
+
 alv=na.omit(daxR$alvR); DS = density(alv)
 yl=c(min(DS$y),max(DS$y)) #set y limits
 hist(alv,probability=T,xlab="ALV returns", main=NULL,ylim=yl)
@@ -72,6 +84,11 @@ rug(alv); lines(DS); a=seq(min(alv),max(alv),0.001)
 points(a,dnorm(a,mean(alv),sd(alv)), type="l",lty=2)
 # if you rather have a red line for the normal distribution do:
 lines(a,dnorm(a,mean(alv), sd(alv)),col="red")
+
+## Explore the possibility of aggregational normality in 
+## stock returns (i.e. as the time scale increases - daily, 
+## weekly and so on, the distribution of returns looks more 
+## like a normal distribution).
 
 require(quantmod)
 appl = getSymbols("AAPL",src="yahoo")
