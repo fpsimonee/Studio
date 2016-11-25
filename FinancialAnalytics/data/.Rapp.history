@@ -1,0 +1,2 @@
+load("/Users/felipe/Documents/RStudio/FinancialAnalytics/data/sp500m.rds")
+load("/Users/felipe/Documents/RStudio/FinancialAnalytics/data/AAPL.f.rds")
